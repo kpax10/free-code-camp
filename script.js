@@ -7,20 +7,39 @@ function checkCashRegister(price, cash, cid) {
   let cashDue = cash - price
 
   if (cashDue > 0) {
-    let currentDrawerItem = []
     // loop backwards over text values in cid
     for (let i = cid.length - 1; i >= 0; i--) {
+
+      let currentDrawerItem = []
       let drawerItemValue = cid[i][1]
-      const matrixValue = matrix[cid[i][0]]
+      let matrixValue = matrix[cid[i][0]]
+
+      if (drawerItemValue === 0) i--
+
       if (matrixValue <= cashDue && matrixValue <= drawerItemValue) {
-        // subtract value from cashdue
-        drawerItemValue -= matrixValue
-
-        console.log(drawerItemValue);
+        console.log('cash due: ', cashDue);
         // subtract value from arrayValue
-        // i++
+        console.log('drawer item: ', cid[i][0]);
+        console.log('drawerItem before', drawerItemValue);
+        console.log('subtract: ', matrixValue);
+        drawerItemValue -= matrixValue
+        console.log('new drawerItemValue: ', drawerItemValue);
 
+        // add cash to currentDrawerItem
+        // currentDrawerItem.push(matrixValue)
+
+        // subtract value from cashdue
+        cashDue -= matrixValue
+        // loop back over same drawer item
+        console.log(cid[i]);
+        drawerItemValue = cid[i + 1][1]
+
+          // matrixValue = matrix[cid[i + 1][0]]
+          ;
+        console.log('******');
+        // i++
       }
+      // console.log(currentDrawerItem);
       // if cid item value <= cashDue
       // console.log(matrix[element[0]]);
       // if (matrix[element[0]])
@@ -34,4 +53,4 @@ function checkCashRegister(price, cash, cid) {
   return message
 }
 
-console.log(checkCashRegister(20, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]))
+console.log(checkCashRegister(20, 1000, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]))
